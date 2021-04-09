@@ -14,8 +14,7 @@ filterOption.addEventListener('click', filterTodo);
 function addTodo(event) {
   // Prevent form from submitting
   event.preventDefault();
-
-  const todoDiv = createTodoDiv(todoInput.value);
+  const todoDiv = createTodoDiv({ isCompleted: false, task: todoInput.value });
   todoList.appendChild(todoDiv);
 
   // ADD TODO TO LOCAL STORAGE
@@ -25,14 +24,19 @@ function addTodo(event) {
   todoInput.value = '';
 }
 
-function createTodoDiv(content) {
+function createTodoDiv(todo) {
   // Todo div
   const todoDiv = document.createElement('div');
   todoDiv.classList.add('todo');
 
+  // Check if the task has been completed
+  if (todo.isCompleted) {
+    todoDiv.classList.add('completed');
+  }
+
   // Create LI
   const newTodo = document.createElement('li');
-  newTodo.innerText = content;
+  newTodo.innerText = todo.task;
   newTodo.classList.add('todo-item');
   todoDiv.appendChild(newTodo);
 
@@ -67,6 +71,7 @@ function deleteCheck(e) {
   // CHECK MARK
   if (item.classList[0] === 'complete-btn') {
     const todo = item.parentElement;
+    changeTodoItemState(todo);
     todo.classList.toggle('completed');
   }
 }
@@ -98,8 +103,11 @@ function filterTodo(e) {
 
 function saveLocalTodos(todo) {
   let todos = grabTodosFromLocalStorage();
-
-  todos.push(todo);
+  const newTodo = {
+    isCompleted: false,
+    task: todo,
+  };
+  todos.push(newTodo);
   localStorage.setItem('todos', JSON.stringify(todos));
 }
 
@@ -121,7 +129,23 @@ function getTodos() {
   });
 }
 
+function changeTodoItemState(todo) {
+  let todos = grabTodosFromLocalStorage();
+  todos.map(function (item) {
+    if (item.task === todo.children[0].innerText) {
+      if (item.isCompleted === true) {
+        item.isCompleted = false;
+      } else {
+        item.isCompleted = true;
+      }
+    }
+  });
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
+
 function removeLocalTodos(todo) {
   let todos = grabTodosFromLocalStorage();
-  console.dir(todo.children[0].innerText);
+  let todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
+  localStorage.setItem('todos', JSON.stringify(todos));
 }
