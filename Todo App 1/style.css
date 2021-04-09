@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+  --color-primary: #020631;
+  --text-color: #fff;
+  --hover-color: #35de6d;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: var(--color-primary);
+  color: var(--text-color);
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 500px;
+  margin: 100px auto;
+}
+
+.container h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.container .input-container {
+  /* padding-left: 10px;
+  padding-right: 10px; */
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-container input {
+  padding: 10px;
+  flex-grow: 1;
+  border: 2px solid #fff;
+  outline: none;
+  border-radius: 5px;
+}
+
+.input-container i {
+  padding: 10px;
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #00967d;
+}
+
+.input-container i:hover {
+  background: #007a66;
+}
+
+.container .results {
+  max-height: 300px;
+  overflow: auto;
+  margin-top: 20px;
+}
+
+.container .results::-webkit-scrollbar {
+  width: 10px;
+}
+
+.container .results::-webkit-scrollbar-track {
+  background: #383838;
+}
+
+.container .results::-webkit-scrollbar-thumb {
+  background: #131313;
+  border-radius: 20px;
+  border: 2px solid #383838;
+}
+
+.results ul {
+  padding: 0 10px 0 0;
+}
+
+.results li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+  color: #232323;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.results li:hover {
+  background-color: #0080e9;
+  color: #fff;
+  text-decoration: line-through;
+  transition: 0.2s ease;
+}
+
+.results li:last-child {
+  margin-bottom: 0;
+}
+
+.results ul li.complete {
+  background-color: #0080e9;
+  color: #fff;
+  text-decoration: line-through;
+  position: relative;
+  box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.results ul li.complete::after {
+  content: 'COMPLETE';
+  position: absolute;
+  top: 50%;
+  color: #000;
+}
+
+.results ul li.complete::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f00d';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 10px;
+}
