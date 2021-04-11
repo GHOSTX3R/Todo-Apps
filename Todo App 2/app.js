@@ -149,7 +149,9 @@ function changeTodoItemState(todo) {
 function removeLocalTodos(todo) {
   let todos = grabTodosFromLocalStorage();
   let todoIndex = todo.children[0].innerText;
-  todos.splice(todos.indexOf(todoIndex), 1);
+  todos = todos.filter(function (todo) {
+    return !(todo.task === todoIndex);
+  });
   localStorage.setItem('todos', JSON.stringify(todos));
 }
 
@@ -172,8 +174,8 @@ function createAndShowModal(todo) {
   yesButton.addEventListener('click', function () {
     document.querySelector('.modal').remove();
     // Animation
-    todo.classList.add('fall');
     removeLocalTodos(todo);
+    todo.classList.add('fall');
     todo.addEventListener('transitionend', function () {
       todo.remove();
     });
