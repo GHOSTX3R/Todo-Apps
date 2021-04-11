@@ -6,6 +6,13 @@ const filterOption = document.querySelector('.filter-todo');
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', getTodos);
+document.addEventListener('click', function (e) {
+  const modalItem = document.querySelector('.modal');
+  const clickedItem = e.target;
+  if (clickedItem === modalItem) {
+    modalItem.remove();
+  }
+});
 todoButton.addEventListener('click', addTodo);
 todoList.addEventListener('click', deleteCheck);
 filterOption.addEventListener('click', filterTodo);
@@ -60,12 +67,8 @@ function deleteCheck(e) {
   // DELETE TODO
   if (item.classList[0] === 'trash-btn') {
     const todo = item.parentElement;
-    // Animation
-    todo.classList.add('fall');
-    removeLocalTodos(todo);
-    todo.addEventListener('transitionend', function () {
-      todo.remove();
-    });
+    // Show confirmation msg
+    createAndShowModal(todo);
   }
 
   // CHECK MARK
@@ -148,4 +151,47 @@ function removeLocalTodos(todo) {
   let todoIndex = todo.children[0].innerText;
   todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function createAndShowModal(todo) {
+  const divModal = document.createElement('div');
+  divModal.classList.add('modal');
+
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('content');
+
+  const exclamationIcon = document.createElement('i');
+  exclamationIcon.classList.add('fas', 'fa-exclamation');
+
+  const modalText = document.createElement('p');
+  modalText.innerText = 'Are you sure, you want to delete this TODO ?';
+
+  const yesButton = document.createElement('button');
+  yesButton.classList.add('yes-btn');
+  yesButton.innerText = "Yes, I'm sure";
+  yesButton.addEventListener('click', function () {
+    document.querySelector('.modal').remove();
+    // Animation
+    todo.classList.add('fall');
+    removeLocalTodos(todo);
+    todo.addEventListener('transitionend', function () {
+      todo.remove();
+    });
+  });
+
+  const noButton = document.createElement('button');
+  noButton.classList.add('no-btn');
+  noButton.innerText = 'Cancel';
+  noButton.addEventListener('click', function () {
+    document.querySelector('.modal').remove();
+  });
+
+  modalContent.appendChild(exclamationIcon);
+  modalContent.appendChild(modalText);
+  modalContent.appendChild(yesButton);
+  modalContent.appendChild(noButton);
+
+  divModal.appendChild(modalContent);
+
+  document.body.prepend(divModal);
 }
