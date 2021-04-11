@@ -35,7 +35,6 @@ form button {
 
 form button {
   color: rgb(255, 166, 0);
-  background: white;
   cursor: pointer;
   transition: all 0.3s ease;
 }
