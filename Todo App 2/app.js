@@ -115,6 +115,7 @@ function saveLocalTodos(todo) {
 }
 
 function grabTodosFromLocalStorage() {
+  const api = 'http://localhost:8080/api/v1/todo';
   let todos;
   if (localStorage.getItem('todos') === null) {
     todos = [];
