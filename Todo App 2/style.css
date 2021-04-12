@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   margin: 0;
@@ -8,7 +8,7 @@
 
 body {
   background: linear-gradient(45deg, #c5deea 0%, #8abbd7 31%, #066dab 100%);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #f2f2f2;
   min-height: 100vh;
   position: relative;
@@ -127,7 +127,7 @@ select {
 }
 
 .select::after {
-  content: '\25BC';
+  content: "\25BC";
   position: absolute;
   background: rgb(255, 166, 0);
   top: 0;
