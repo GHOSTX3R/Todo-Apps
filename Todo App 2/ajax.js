@@ -5,14 +5,6 @@ let Ajax = function () {
 Ajax.prototype.makeRequest = function (method, url, paramObject) {
   return new Promise((resolve, reject) => {
     let ajax = this.xhr;
-    let params = '';
-    let sep = '';
-
-    for (let p in paramObject) {
-      params += sep + p + '=' + paramObject[p];
-      sep = '&';
-    }
-
     ajax.open(method, url);
     ajax.onload = function () {
       if (ajax.status >= 200 && ajax.status < 300) {
@@ -31,11 +23,11 @@ Ajax.prototype.makeRequest = function (method, url, paramObject) {
       });
     };
 
-    if (method === 'POST') {
-      ajax.setRequestHeader('Content-type', 'application/json');
+    if (method === "POST") {
+      ajax.setRequestHeader("Content-type", "application/json");
     }
 
-    ajax.send(params);
+    ajax.send(JSON.stringify(paramObject));
   });
 };
 

@@ -25,8 +25,8 @@ function addTodo(event) {
   event.preventDefault();
 
   const newTodo = {
-    "completed": false,
-    "task": todoInput.value,
+    completed: false,
+    task: todoInput.value,
   };
 
   // ADD TODO TO DATABASE
